@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>co.com.gsdd</groupId>
+		<artifactId>j2ee</artifactId>
+		<version>1.0.001</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<artifactId>j2ee-ejb</artifactId>
+	<packaging>ejb</packaging>
+	<name>j2ee EJB</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>j2ee-db</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>co.com.gsdd.jaxrs</groupId>
+			<artifactId>jaxrs-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>co.com.gsdd</groupId>
+			<artifactId>jeeservice-rest-impl</artifactId>
+			<classifier>classes</classifier>
+		</dependency>
+		<!-- External Internet -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+		</dependency>
+		<!-- IT DB -->
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ejb-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>

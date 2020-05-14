@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>co.com.gsdd</groupId>
+		<artifactId>j2ee</artifactId>
+		<version>1.0.001</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>j2ee-ear</artifactId>
+	<packaging>ear</packaging>
+	<name>j2ee EAR</name>
+
+	<properties>
+		<final.name>${project.artifactId}</final.name>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>j2ee-ejb</artifactId>
+			<type>ejb</type>
+		</dependency>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>j2ee-war</artifactId>
+			<type>war</type>
+		</dependency>
+
+		<!-- The following are dependencies from the rest war since that is a skinny 
+			war, we need to include its dependencies in the ear since the ear plugin 
+			assumes fat wars and doesn't include transitive dependencies -->
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-jaxrs</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ear-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<finalName>${project.artifactId}</finalName>
+	</build>
+</project>

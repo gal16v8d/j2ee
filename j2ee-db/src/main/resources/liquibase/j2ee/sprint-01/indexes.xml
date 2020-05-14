@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<changeSet author="alexander-galvis" id="j2ee-sprint-01-table-unique-index-01-person">
+		<createIndex indexName="ui01_prsn" tableName="person"
+					 unique="true">
+			<column name="id_number" />
+		</createIndex>
+	</changeSet>
+	
+	<changeSet author="alexander-galvis" id="j2ee-sprint-01-table-non-unique-index-01-person">
+		<createIndex indexName="ix01_prsn" tableName="person"
+					 unique="false">
+			<column name="name" />
+			<column name="last_name" />
+		</createIndex>
+	</changeSet>
+
+</databaseChangeLog>

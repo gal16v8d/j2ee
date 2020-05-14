@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<changeSet author="alexander-galvis" id="j2ee-sprint-01-tables-person">
+		<createTable tableName="person">
+			<column name="person_id" type="VARCHAR2(100)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="id_number" type="VARCHAR2(100)" >
+				<constraints nullable="false"/>
+			</column>
+			<column name="name" type="VARCHAR2(100)" >
+				<constraints nullable="false"/>
+			</column>
+			<column name="last_name" type="VARCHAR2(100)" >
+				<constraints nullable="false"/>
+			</column>
+			<column defaultValueComputed="CURRENT_TIMESTAMP" name="last_modification" type="TIMESTAMP(6)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	
+</databaseChangeLog>

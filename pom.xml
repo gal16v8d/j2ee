@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>co.com.gsdd</groupId>
+	<artifactId>j2ee</artifactId>
+	<version>1.0.001</version>
+	<packaging>pom</packaging>
+
+	<name>j2ee</name>
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
+		<repository>
+			<id>spring.repo</id>
+			<url>http://repo.spring.io/plugins-release/</url>
+		</repository>
+	</repositories>
+
+	<properties>
+		<!-- Gral settings -->
+		<project.encoding>UTF-8</project.encoding>
+		<project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
+		<project.build.targetEncoding>${project.encoding}</project.build.targetEncoding>
+		<project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+
+		<!-- Mvn plugins -->
+		<mvn.compiler.plugin.version>3.8.1</mvn.compiler.plugin.version>
+		<mvn.release.plugin.version>2.5.3</mvn.release.plugin.version>
+		<mvn.javadoc.plugin.version>3.1.1</mvn.javadoc.plugin.version>
+		<mvn.failsafe.plugin.version>3.0.0-M4</mvn.failsafe.plugin.version>
+		<mvn.surefire.plugin.version>3.0.0-M4</mvn.surefire.plugin.version>
+		<mvn.jacoco.plugin.version>0.8.5</mvn.jacoco.plugin.version>
+		<mvn.source.plugin.version>3.2.0</mvn.source.plugin.version>
+		<mvn.fmt.plugin.version>2.10.0</mvn.fmt.plugin.version>
+		<mvn.ear.plugin.version>3.0.1</mvn.ear.plugin.version>
+		<mvn.ejb.plugin.version>2.5.1</mvn.ejb.plugin.version>
+		<mvn.war.plugin.version>3.2.2</mvn.war.plugin.version>
+
+		<doc-lint>none</doc-lint>
+		<!-- If true skips UT test execution -->
+		<skip.unit.tests>false</skip.unit.tests>
+		<!-- If true skips IT test execution -->
+		<skip.integration.tests>false</skip.integration.tests>
+
+		<!-- JaCoCo props -->
+		<jacoco.ut.exec>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.exec>
+		<jacoco.ut.reportPath>${project.build.directory}/coverage-reports/jacoco-ut</jacoco.ut.reportPath>
+		<jacoco.it.exec>${project.build.directory}/coverage-reports/jacoco-it.exec</jacoco.it.exec>
+		<jacoco.it.reportPath>${project.build.directory}/coverage-reports/jacoco-it</jacoco.it.reportPath>
+
+		<ear.version>6</ear.version>
+		<ejb.version>3.2</ejb.version>
+
+		<javaee-api.version>7.0</javaee-api.version>
+		<lombok.version>1.18.12</lombok.version>
+		<slf4j.version>1.7.25</slf4j.version>
+		<swagger.version>1.5.10</swagger.version>
+		<postgresql.version>42.2.12</postgresql.version>
+		<jaxrs.client.version>1.0.001</jaxrs.client.version>
+		<jeeservice.version>1.0.001</jeeservice.version>
+
+		<log4j.bridge.version>2.9.0</log4j.bridge.version>
+		<log4j.version>2.11.1</log4j.version>
+		<resteasy.version>3.0.14.Final</resteasy.version>
+		<junit.version>5.5.2</junit.version>
+		<mockito.version>3.2.4</mockito.version>
+		<!-- For IT using wildfly -->
+		<derby.version>10.14.2.0</derby.version>
+		<jboss-logging.version>3.3.0.Final</jboss-logging.version>
+		<hibernate.version>5.0.7.Final</hibernate.version>
+	</properties>
+
+	<!-- Child projects inherit this -->
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Logger Test -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.bridge.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>j2ee-db</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>j2ee-ejb</artifactId>
+				<version>${project.version}</version>
+				<type>ejb</type>
+			</dependency>
+
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>j2ee-war</artifactId>
+				<version>${project.version}</version>
+				<type>war</type>
+			</dependency>
+
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-api</artifactId>
+				<version>${javaee-api.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-jaxrs</artifactId>
+				<version>${swagger.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>co.com.gsdd.jaxrs</groupId>
+				<artifactId>jaxrs-client</artifactId>
+				<version>${jaxrs.client.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>co.com.gsdd</groupId>
+				<artifactId>jeeservice-rest-impl</artifactId>
+				<version>${jeeservice.version}</version>
+				<classifier>classes</classifier>
+			</dependency>
+			<!-- db -->
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>${postgresql.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<!-- For it test -->
+			<dependency>
+				<groupId>org.apache.derby</groupId>
+				<artifactId>derby</artifactId>
+				<version>${derby.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.logging</groupId>
+				<artifactId>jboss-logging</artifactId>
+				<version>${jboss-logging.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-client</artifactId>
+				<version>${resteasy.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-jaxrs</artifactId>
+				<version>${resteasy.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-jaxb-provider</artifactId>
+				<version>${resteasy.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-jackson2-provider</artifactId>
+				<version>${resteasy.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-ear-plugin</artifactId>
+					<version>${mvn.ear.plugin.version}</version>
+					<configuration>
+						<version>${ear.version}</version>
+						<defaultLibBundleDir>lib</defaultLibBundleDir>
+						<finalName>j2ee-ear</finalName>
+						<modules>
+							<ejbModule>
+								<groupId>${project.groupId}</groupId>
+								<artifactId>j2ee-ejb</artifactId>
+								<bundleFileName>j2ee-ejb.jar</bundleFileName>
+							</ejbModule>
+							<webModule>
+								<groupId>${project.groupId}</groupId>
+								<artifactId>j2ee-war</artifactId>
+								<bundleFileName>j2ee-war.war</bundleFileName>
+								<contextRoot>/j2ee</contextRoot>
+							</webModule>
+						</modules>
+						<archive>
+							<manifestEntries>
+								<Application-Version>${project.version}</Application-Version>
+							</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${mvn.javadoc.plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-ejb-plugin</artifactId>
+					<version>${mvn.ejb.plugin.version}</version>
+					<executions>
+						<execution>
+							<phase>package</phase>
+							<goals>
+								<goal>ejb</goal>
+							</goals>
+							<configuration>
+								<generateClient>false</generateClient>
+								<clientExcludes>
+									<clientExclude>META-INF/*.xml</clientExclude>
+									<clientExclude>**/ejb/impl/</clientExclude>
+								</clientExcludes>
+							</configuration>
+						</execution>
+					</executions>
+					<configuration>
+						<ejbVersion>${ejb.version}</ejbVersion>
+						<generateClient>true</generateClient>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${mvn.war.plugin.version}</version>
+					<configuration>
+						<!-- Use this to include a selection of jars that will be included 
+							in the WAR -->
+						<packagingIncludes>**/*.xml,**/*.properties,**/*.class,**/*.png,**/*.css,**/*.js,**/*.jsp,**/*.html,**/*.json</packagingIncludes>
+						<archive>
+							<manifest>
+								<addClasspath>true</addClasspath>
+								<classpathPrefix>lib/</classpathPrefix>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>${mvn.release.plugin.version}</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${mvn.compiler.plugin.version}</version>
+
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+
+			<!-- Plugin for Unit Test -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${mvn.surefire.plugin.version}</version>
+				<configuration>
+					<!-- Sets the VM argument line used when unit tests are run. -->
+					<argLine>${surefireArgLine}</argLine>
+					<!-- Skips unit tests if the value of skip.unit.tests property is true -->
+					<skipTests>${skip.unit.tests}</skipTests>
+					<!-- Excludes integration tests when unit tests are run. -->
+					<excludes>
+						<exclude>**/IT*.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<!-- Plugin for Integration Test -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>${mvn.failsafe.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>integration-tests</id>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the VM argument line used when integration tests are run. -->
+							<argLine>${failsafeArgLine}</argLine>
+							<!-- Skips integration tests if the value of skip.integration.tests 
+								property is true -->
+							<skipTests>${skip.integration.tests}</skipTests>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Plugin for take project java code coverage by unit and integration 
+				tests -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${mvn.jacoco.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<append>true</append>
+							<destFile>${jacoco.ut.reportPath}</destFile>
+							<propertyName>surefireArgLine</propertyName>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<append>true</append>
+							<dataFile>${jacoco.ut.reportPath}</dataFile>
+							<outputDirectory>${jacoco.ut.reportPath.site}</outputDirectory>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>pre-integration-test</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<append>true</append>
+							<destFile>${jacoco.it.reportPath}</destFile>
+							<propertyName>failsafeArgLine</propertyName>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>post-integration-test</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<dataFile>${jacoco.it.reportPath}</dataFile>
+							<outputDirectory>${jacoco.it.reportPath.site}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<doclint>${doc-lint}</doclint>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<!-- add this to disable checking -->
+							<doclint>${doc-lint}</doclint>
+						</configuration>
+					</execution>
+					<execution>
+						<phase>deploy</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<doclint>${doc-lint}</doclint>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${mvn.source.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>net.revelc.code.formatter</groupId>
+				<artifactId>formatter-maven-plugin</artifactId>
+				<version>${mvn.fmt.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>validate-code-format</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>j2ee-db</module>
+		<module>j2ee-ejb</module>
+		<module>j2ee-war</module>
+		<module>j2ee-ear</module>
+	</modules>
+</project>

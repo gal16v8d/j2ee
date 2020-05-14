@@ -1,0 +1,91 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>co.com.gsdd</groupId>
+		<artifactId>j2ee</artifactId>
+		<version>1.0.001</version>
+	</parent>
+
+	<artifactId>j2ee-db</artifactId>
+	<packaging>jar</packaging>
+
+	<organization>
+		<name>GSDD</name>
+	</organization>
+	<name>j2ee DB</name>
+
+	<properties>
+		<scm.rungoal>updateSQL</scm.rungoal>
+		<scm.skipdb>true</scm.skipdb>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<scm.dropFirst>false</scm.dropFirst>
+				<scm.rungoal>update</scm.rungoal>
+				<database.driver>org.postgresql.Driver</database.driver>
+				<database.username>postgres</database.username>
+				<database.password>postgres</database.password>
+				<database.url>jdbc:postgresql://localhost:5432/j2ee</database.url>
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>scmDB</id>
+						<phase>install</phase>
+						<configuration>
+							<skip>${scm.skipdb}</skip>
+							<driver>${database.driver}</driver>
+							<url>${database.url}</url>
+							<username>${database.username}</username>
+							<password>${database.password}</password>
+							<changeLogFile>db.changelog.xml</changeLogFile>
+							<verbose>false</verbose>
+							<dropFirst>${scm.dropFirst}</dropFirst>
+							<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+							<migrationSqlOutputFile>target/liquibase/scmDB.sql</migrationSqlOutputFile>
+							<defaultSchemaName>public</defaultSchemaName>
+						</configuration>
+						<goals>
+							<goal>${scm.rungoal}</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
