@@ -19,30 +19,30 @@ import co.com.gsdd.j2ee.rest.api.websocket.WebSocketClientEndpoint;
 @ExtendWith(MockitoExtension.class)
 public class WSClientRestImplTest {
 
-	@Spy
-	@InjectMocks
-	private WSClientRestImpl wsClientRestImpl;
-	@Mock
-	private WebSocketClientEndpoint webSocketClient;
+    @Spy
+    @InjectMocks
+    private WSClientRestImpl wsClientRestImpl;
+    @Mock
+    private WebSocketClientEndpoint webSocketClient;
 
-	@BeforeEach
-	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-	}
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
 
-	@Test
-	public void checkWebSocketClientTest() {
-		Mockito.doNothing().when(webSocketClient).initConnection();
-		Response response = wsClientRestImpl.checkWebSocketClient();
-		Assertions.assertNotNull(response);
-		Assertions.assertEquals(Status.OK.getStatusCode(), response.getStatus());
-	}
+    @Test
+    public void checkWebSocketClientTest() {
+        Mockito.doNothing().when(webSocketClient).initConnection();
+        Response response = wsClientRestImpl.checkWebSocketClient();
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(Status.OK.getStatusCode(), response.getStatus());
+    }
 
-	@Test
-	public void checkWebSocketClientExcTest() {
-		Mockito.doThrow(new RuntimeException()).when(webSocketClient).initConnection();
-		Response response = wsClientRestImpl.checkWebSocketClient();
-		Assertions.assertNotNull(response);
-		Assertions.assertEquals(Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
-	}
+    @Test
+    public void checkWebSocketClientExcTest() {
+        Mockito.doThrow(new RuntimeException()).when(webSocketClient).initConnection();
+        Response response = wsClientRestImpl.checkWebSocketClient();
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
+    }
 }

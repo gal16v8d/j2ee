@@ -29,67 +29,66 @@ import co.com.gsdd.j2ee.ejb.PersonEJB;
 @ExtendWith(MockitoExtension.class)
 public class WebSocketClientEndpointTest {
 
-	@Spy
-	@InjectMocks
-	private WebSocketClientEndpoint webSocketClientEndpoint;
-	@Mock
-	private PersonEJB personEJB;
+    @Spy
+    @InjectMocks
+    private WebSocketClientEndpoint webSocketClientEndpoint;
+    @Mock
+    private PersonEJB personEJB;
 
-	@BeforeEach
-	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-	}
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
 
-	@Test
-	public void onOpenErrorTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic)
-			throws IOException {
-		Mockito.doReturn(basic).when(session).getBasicRemote();
-		Mockito.doNothing().when(basic).sendText(Mockito.anyString());
-		Mockito.doThrow(new RuntimeException()).when(personEJB).findAll();
-		webSocketClientEndpoint.onOpen(session, conf);
-		Mockito.verify(basic).sendText(Mockito.anyString());
-	}
+    @Test
+    public void onOpenErrorTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic)
+            throws IOException {
+        Mockito.doReturn(basic).when(session).getBasicRemote();
+        Mockito.doNothing().when(basic).sendText(Mockito.anyString());
+        Mockito.doThrow(new RuntimeException()).when(personEJB).findAll();
+        webSocketClientEndpoint.onOpen(session, conf);
+        Mockito.verify(basic).sendText(Mockito.anyString());
+    }
 
-	@ParameterizedTest
-	@MethodSource("noPersonInDb")
-	public void onOpenNoResultTest(List<Person> person, @Mock Session session, @Mock EndpointConfig conf,
-			@Mock Basic basic) throws IOException {
-		Mockito.doReturn(basic).when(session).getBasicRemote();
-		Mockito.doNothing().when(basic).sendText(Mockito.anyString());
-		Mockito.doReturn(person).when(personEJB).findAll();
-		webSocketClientEndpoint.onOpen(session, conf);
-		Mockito.verify(basic).sendText(Mockito.anyString());
-	}
-	
-	private static Stream<Arguments> noPersonInDb() {
-		return Stream.of(null, Arguments.of(Collections.emptyList()));
-	}
-	
-	@Test
-	public void onOpenTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic)
-			throws IOException {
-		Mockito.doReturn(basic).when(session).getBasicRemote();
-		Mockito.doNothing().when(basic).sendText(Mockito.anyString());
-		Mockito.doReturn(arrangePersonList()).when(personEJB).findAll();
-		webSocketClientEndpoint.onOpen(session, conf);
-		Mockito.verify(basic, Mockito.times(3)).sendText(Mockito.anyString());
-	}
+    @ParameterizedTest
+    @MethodSource("noPersonInDb")
+    public void onOpenNoResultTest(List<Person> person, @Mock Session session, @Mock EndpointConfig conf,
+            @Mock Basic basic) throws IOException {
+        Mockito.doReturn(basic).when(session).getBasicRemote();
+        Mockito.doNothing().when(basic).sendText(Mockito.anyString());
+        Mockito.doReturn(person).when(personEJB).findAll();
+        webSocketClientEndpoint.onOpen(session, conf);
+        Mockito.verify(basic).sendText(Mockito.anyString());
+    }
 
-	private List<Person> arrangePersonList() {
-		return Arrays.asList(new Person());
-	}
+    private static Stream<Arguments> noPersonInDb() {
+        return Stream.of(null, Arguments.of(Collections.emptyList()));
+    }
 
-	@Test
-	public void onCloseErrorTest(@Mock Session session) throws IOException {
-		Mockito.doThrow(new IOException()).when(session).close();
-		webSocketClientEndpoint.onClose(session);
-		Mockito.verify(session).close();
-	}
+    @Test
+    public void onOpenTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic) throws IOException {
+        Mockito.doReturn(basic).when(session).getBasicRemote();
+        Mockito.doNothing().when(basic).sendText(Mockito.anyString());
+        Mockito.doReturn(arrangePersonList()).when(personEJB).findAll();
+        webSocketClientEndpoint.onOpen(session, conf);
+        Mockito.verify(basic, Mockito.times(3)).sendText(Mockito.anyString());
+    }
 
-	@Test
-	public void onCloseTest(@Mock Session session) throws IOException {
-		Mockito.doNothing().when(session).close();
-		webSocketClientEndpoint.onClose(session);
-		Mockito.verify(session).close();
-	}
+    private List<Person> arrangePersonList() {
+        return Arrays.asList(new Person());
+    }
+
+    @Test
+    public void onCloseErrorTest(@Mock Session session) throws IOException {
+        Mockito.doThrow(new IOException()).when(session).close();
+        webSocketClientEndpoint.onClose(session);
+        Mockito.verify(session).close();
+    }
+
+    @Test
+    public void onCloseTest(@Mock Session session) throws IOException {
+        Mockito.doNothing().when(session).close();
+        webSocketClientEndpoint.onClose(session);
+        Mockito.verify(session).close();
+    }
 }

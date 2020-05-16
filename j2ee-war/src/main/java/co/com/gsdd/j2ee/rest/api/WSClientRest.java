@@ -16,11 +16,11 @@ import io.swagger.annotations.ApiResponses;
 @Path("websocketTest")
 public interface WSClientRest {
 
-	@ApiOperation(value = "Launch web socket action query some person on db")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Ok|Success"),
-			@ApiResponse(code = 500, message = RestUtil.SWAGGER_DOC_UNEXPECTED_ERROR) })
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	Response checkWebSocketClient();
+    @ApiOperation(value = "Launch web socket action query some person on db")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Ok|Success"),
+            @ApiResponse(code = 500, message = RestUtil.SWAGGER_DOC_UNEXPECTED_ERROR) })
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    Response checkWebSocketClient();
 
 }

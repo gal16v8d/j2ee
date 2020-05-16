@@ -18,34 +18,34 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class WebSocketServerEndpointTest {
 
-	@Spy
-	private WebSocketServerEndpoint webSocketServerEndpoint;
+    @Spy
+    private WebSocketServerEndpoint webSocketServerEndpoint;
 
-	@BeforeEach
-	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-	}
-	
-	@Test
-	public void onOpenTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic) throws IOException {
-		Mockito.when(session.getBasicRemote()).thenReturn(basic);
-		Mockito.doNothing().when(basic).sendText(Mockito.anyString());
-		webSocketServerEndpoint.onOpen(session, conf);
-		Mockito.verify(basic).sendText(Mockito.anyString());
-	}
-	
-	@Test
-	public void onMessageTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic) throws IOException {
-		Mockito.when(session.getBasicRemote()).thenReturn(basic);
-		Mockito.doNothing().when(basic).sendText(Mockito.anyString());
-		webSocketServerEndpoint.onOpen(session, conf);
-		webSocketServerEndpoint.onMessage("Test", session);
-		Mockito.verify(basic, Mockito.times(2)).sendText(Mockito.anyString());
-	}
-	
-	@Test
-	public void onMessageNoSessionTest(@Mock Session session) throws IOException {
-		webSocketServerEndpoint.onMessage("Test", session);
-		Mockito.verify(session, Mockito.never()).getBasicRemote();
-	}
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void onOpenTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic) throws IOException {
+        Mockito.when(session.getBasicRemote()).thenReturn(basic);
+        Mockito.doNothing().when(basic).sendText(Mockito.anyString());
+        webSocketServerEndpoint.onOpen(session, conf);
+        Mockito.verify(basic).sendText(Mockito.anyString());
+    }
+
+    @Test
+    public void onMessageTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic) throws IOException {
+        Mockito.when(session.getBasicRemote()).thenReturn(basic);
+        Mockito.doNothing().when(basic).sendText(Mockito.anyString());
+        webSocketServerEndpoint.onOpen(session, conf);
+        webSocketServerEndpoint.onMessage("Test", session);
+        Mockito.verify(basic, Mockito.times(2)).sendText(Mockito.anyString());
+    }
+
+    @Test
+    public void onMessageNoSessionTest(@Mock Session session) throws IOException {
+        webSocketServerEndpoint.onMessage("Test", session);
+        Mockito.verify(session, Mockito.never()).getBasicRemote();
+    }
 }
