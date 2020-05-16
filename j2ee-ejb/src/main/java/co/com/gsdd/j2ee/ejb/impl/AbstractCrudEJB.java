@@ -1,6 +1,7 @@
 package co.com.gsdd.j2ee.ejb.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -16,45 +17,44 @@ import lombok.Getter;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public abstract class AbstractCrudEJB<T extends AbstractJPAEntity, D> implements ICrud<T, D> {
 
-	@Inject
-	private EntityManager manager;
-	private final Class<T> clazz;
+    @Inject
+    private EntityManager manager;
+    private final Class<T> clazz;
 
-	public AbstractCrudEJB(Class<T> clazz) {
-		this.clazz = clazz;
-	}
-	
-	@Override
-	public T save(T entity) {
-		getManager().persist(entity);
-		getManager().flush();
-		return entity;
-	}
-	
-	@Override
-	public T find(D id) {
-		return getManager().find(getClazz(), id);
-	}
+    public AbstractCrudEJB(Class<T> clazz) {
+        this.clazz = clazz;
+    }
 
-	@Override
-	public List<T> findAll() {
-		final CriteriaQuery<T> criteriaQuery = getManager().getCriteriaBuilder().createQuery(getClazz());
-		criteriaQuery.select(criteriaQuery.from(getClazz()));
-		return getManager().createQuery(criteriaQuery).getResultList();
-	}
+    @Override
+    public T save(T entity) {
+        getManager().persist(entity);
+        getManager().flush();
+        return entity;
+    }
 
-	public abstract T update(D id, T entity);
+    @Override
+    public Optional<T> find(D id) {
+        return Optional.ofNullable(getManager().find(getClazz(), id));
+    }
 
-	@Override
-	public boolean delete(D id) {
-		boolean success = false;
-		T entity = find(id);
-		if (entity != null) {
-			getManager().remove(entity);
-			getManager().flush();
-			success = true;
-		}
-		return success;
-	}
+    @Override
+    public List<T> findAll() {
+        final CriteriaQuery<T> criteriaQuery = getManager().getCriteriaBuilder().createQuery(getClazz());
+        criteriaQuery.select(criteriaQuery.from(getClazz()));
+        return getManager().createQuery(criteriaQuery).getResultList();
+    }
+
+    public abstract Optional<T> update(D id, T entity);
+
+    @Override
+    public boolean delete(D id) {
+        return find(id).map(this::deleteIfPresent).orElse(false);
+    }
+
+    private boolean deleteIfPresent(T entity) {
+        getManager().remove(entity);
+        getManager().flush();
+        return true;
+    }
 
 }

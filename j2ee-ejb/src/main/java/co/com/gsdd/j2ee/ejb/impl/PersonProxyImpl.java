@@ -11,7 +11,7 @@ import co.com.gsdd.jeeservice.rest.api.PersonRest;
 @Default
 public class PersonProxyImpl implements PersonProxy {
 
-	private static final String JEE_SERVICE_URL = "http://localhost:8080/jeeservice";
+    private static final String JEE_SERVICE_URL = "http://localhost:8080/jeeservice";
     @Inject
     private ProxyClient proxyClient;
 

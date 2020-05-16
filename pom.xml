@@ -566,8 +566,9 @@
 				<version>${mvn.fmt.plugin.version}</version>
 				<executions>
 					<execution>
-						<id>validate-code-format</id>
-						<phase>none</phase>
+						<goals>
+							<goal>format</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>

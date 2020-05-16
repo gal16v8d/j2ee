@@ -15,24 +15,24 @@ import lombok.extern.slf4j.Slf4j;
 @ApplicationScoped
 public class DatabaseProducer {
 
-	private static final String UNIT_NAME = "j2eePerson";
-	@Produces
-	@PersistenceContext(unitName = UNIT_NAME)
-	private EntityManager manager;
+    private static final String UNIT_NAME = "j2eePerson";
+    @Produces
+    @PersistenceContext(unitName = UNIT_NAME)
+    private EntityManager manager;
 
-	@PostConstruct
-	public void init() {
-		checkEntityManager();
-	}
-	
-	private void checkEntityManager() {
+    @PostConstruct
+    public void init() {
+        checkEntityManager();
+    }
+
+    private void checkEntityManager() {
         log.info("EntityManager is {}", getManager());
         if (getManager() == null) {
             manager = getEmFromContext();
         }
     }
-	
-	private EntityManager getEmFromContext() {
+
+    private EntityManager getEmFromContext() {
         EntityManager em = null;
         try {
             em = Persistence.createEntityManagerFactory(UNIT_NAME).createEntityManager();
