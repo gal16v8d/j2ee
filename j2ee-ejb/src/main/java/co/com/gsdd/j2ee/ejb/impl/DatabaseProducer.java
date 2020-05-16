@@ -28,8 +28,6 @@ public class DatabaseProducer {
 	private void checkEntityManager() {
         log.info("EntityManager is {}", getManager());
         if (getManager() == null) {
-            // for some fucking reason the persistence context injection doesn't work so
-            // injecting by lookup
             manager = getEmFromContext();
         }
     }

@@ -1,6 +1,6 @@
 # j2ee
 
-Basic sample with RestEasy + JPA + Hibernate + Liquibase + Wildfly.
+Basic sample with RestEasy + JPA + Hibernate + Liquibase + Wildfly + Swagger.
 
 ## Getting Started
 

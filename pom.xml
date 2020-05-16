@@ -61,9 +61,14 @@
 		<ejb.version>3.2</ejb.version>
 
 		<javaee-api.version>7.0</javaee-api.version>
+		<javax.validation.api.version>1.1.0.Final</javax.validation.api.version>
 		<lombok.version>1.18.12</lombok.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<swagger.version>1.5.10</swagger.version>
+		<jackson.version>2.5.4</jackson.version>
+		<guava.version>18.0</guava.version>
+		<snakeyaml.version>1.15</snakeyaml.version>
+		<javassist.version>3.18.1-GA</javassist.version>
 		<postgresql.version>42.2.12</postgresql.version>
 		<jaxrs.client.version>1.0.001</jaxrs.client.version>
 		<jeeservice.version>1.0.001</jeeservice.version>
@@ -169,10 +174,82 @@
 			</dependency>
 
 			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>${javax.validation.api.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<!-- Swagger dependencies -->
+			<dependency>
 				<groupId>io.swagger</groupId>
 				<artifactId>swagger-jaxrs</artifactId>
 				<version>${swagger.version}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${jackson.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.jaxrs</groupId>
+				<artifactId>jackson-jaxrs-base</artifactId>
+				<version>${jackson.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.jaxrs</groupId>
+				<artifactId>jackson-jaxrs-json-provider</artifactId>
+				<version>${jackson.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.module</groupId>
+				<artifactId>jackson-module-jaxb-annotations</artifactId>
+				<version>${jackson.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.yaml</groupId>
+				<artifactId>snakeyaml</artifactId>
+				<version>${snakeyaml.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.javassist</groupId>
+				<artifactId>javassist</artifactId>
+				<version>${javassist.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<!-- End Swagger dependencies -->
 
 			<dependency>
 				<groupId>co.com.gsdd.jaxrs</groupId>
@@ -273,6 +350,7 @@
 						<archive>
 							<manifestEntries>
 								<Application-Version>${project.version}</Application-Version>
+								<Dependencies>org.javassist, com.google.guava</Dependencies>
 							</manifestEntries>
 						</archive>
 					</configuration>

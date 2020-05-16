@@ -11,12 +11,13 @@ import co.com.gsdd.jeeservice.rest.api.PersonRest;
 @Default
 public class PersonProxyImpl implements PersonProxy {
 
+	private static final String JEE_SERVICE_URL = "http://localhost:8080/jeeservice";
     @Inject
     private ProxyClient proxyClient;
 
     @Override
     public Person getPersonFromProxy() {
-        PersonRest personService = proxyClient.getProxy("http://localhost:8080/jeeservice", PersonRest.class);
+        PersonRest personService = proxyClient.getProxy(JEE_SERVICE_URL, PersonRest.class);
         return personService.getPersonById("lol");
     }
 

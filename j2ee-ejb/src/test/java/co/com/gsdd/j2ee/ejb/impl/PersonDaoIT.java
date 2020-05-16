@@ -9,13 +9,15 @@ import javax.persistence.Persistence;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import co.com.gsdd.j2ee.db.jpa.Person;
-import co.com.gsdd.j2ee.ejb.impl.PersonEJBImpl;
 
+@ExtendWith(MockitoExtension.class)
 public class PersonDaoIT {
 
     private EntityManager entityManager;

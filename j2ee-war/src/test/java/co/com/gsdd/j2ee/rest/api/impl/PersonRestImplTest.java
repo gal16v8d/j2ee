@@ -1,4 +1,4 @@
-package co.com.gsdd.j2ee.rest.api;
+package co.com.gsdd.j2ee.rest.api.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response.Status;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -18,17 +19,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import co.com.gsdd.j2ee.db.jpa.Person;
 import co.com.gsdd.j2ee.ejb.PersonEJB;
 import co.com.gsdd.j2ee.rest.api.request.PersonRequest;
 
-public class PersonRestTest {
+@ExtendWith(MockitoExtension.class)
+public class PersonRestImplTest {
 
     private static final String TEST_PERSON_ID = "1";
     private static final String MOCKED_EXCEPTION = "Mocked Exception";
     @InjectMocks
-    private PersonRest personRest;
+    private PersonRestImpl personRest;
     @Mock
     private PersonEJB personEJB;
 
