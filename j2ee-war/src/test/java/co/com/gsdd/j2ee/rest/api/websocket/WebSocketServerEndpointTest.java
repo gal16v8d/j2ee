@@ -16,18 +16,18 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class WebSocketServerEndpointTest {
+class WebSocketServerEndpointTest {
 
     @Spy
     private WebSocketServerEndpoint webSocketServerEndpoint;
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void onOpenTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic) throws IOException {
+    void onOpenTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic) throws IOException {
         Mockito.when(session.getBasicRemote()).thenReturn(basic);
         Mockito.doNothing().when(basic).sendText(Mockito.anyString());
         webSocketServerEndpoint.onOpen(session, conf);
@@ -35,7 +35,7 @@ public class WebSocketServerEndpointTest {
     }
 
     @Test
-    public void onMessageTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic) throws IOException {
+    void onMessageTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic) throws IOException {
         Mockito.when(session.getBasicRemote()).thenReturn(basic);
         Mockito.doNothing().when(basic).sendText(Mockito.anyString());
         webSocketServerEndpoint.onOpen(session, conf);
@@ -44,7 +44,7 @@ public class WebSocketServerEndpointTest {
     }
 
     @Test
-    public void onMessageNoSessionTest(@Mock Session session) throws IOException {
+    void onMessageNoSessionTest(@Mock Session session) throws IOException {
         webSocketServerEndpoint.onMessage("Test", session);
         Mockito.verify(session, Mockito.never()).getBasicRemote();
     }

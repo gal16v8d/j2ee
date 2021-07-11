@@ -27,7 +27,7 @@ import co.com.gsdd.j2ee.db.jpa.Person;
 import co.com.gsdd.j2ee.ejb.PersonEJB;
 
 @ExtendWith(MockitoExtension.class)
-public class WebSocketClientEndpointTest {
+class WebSocketClientEndpointTest {
 
     @Spy
     @InjectMocks
@@ -36,12 +36,12 @@ public class WebSocketClientEndpointTest {
     private PersonEJB personEJB;
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void onOpenErrorTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic)
+    void onOpenErrorTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic)
             throws IOException {
         Mockito.doReturn(basic).when(session).getBasicRemote();
         Mockito.doNothing().when(basic).sendText(Mockito.anyString());
@@ -52,7 +52,7 @@ public class WebSocketClientEndpointTest {
 
     @ParameterizedTest
     @MethodSource("noPersonInDb")
-    public void onOpenNoResultTest(List<Person> person, @Mock Session session, @Mock EndpointConfig conf,
+    void onOpenNoResultTest(List<Person> person, @Mock Session session, @Mock EndpointConfig conf,
             @Mock Basic basic) throws IOException {
         Mockito.doReturn(basic).when(session).getBasicRemote();
         Mockito.doNothing().when(basic).sendText(Mockito.anyString());
@@ -66,7 +66,7 @@ public class WebSocketClientEndpointTest {
     }
 
     @Test
-    public void onOpenTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic) throws IOException {
+    void onOpenTest(@Mock Session session, @Mock EndpointConfig conf, @Mock Basic basic) throws IOException {
         Mockito.doReturn(basic).when(session).getBasicRemote();
         Mockito.doNothing().when(basic).sendText(Mockito.anyString());
         Mockito.doReturn(arrangePersonList()).when(personEJB).findAll();
@@ -79,14 +79,14 @@ public class WebSocketClientEndpointTest {
     }
 
     @Test
-    public void onCloseErrorTest(@Mock Session session) throws IOException {
+    void onCloseErrorTest(@Mock Session session) throws IOException {
         Mockito.doThrow(new IOException()).when(session).close();
         webSocketClientEndpoint.onClose(session);
         Mockito.verify(session).close();
     }
 
     @Test
-    public void onCloseTest(@Mock Session session) throws IOException {
+    void onCloseTest(@Mock Session session) throws IOException {
         Mockito.doNothing().when(session).close();
         webSocketClientEndpoint.onClose(session);
         Mockito.verify(session).close();
