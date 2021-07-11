@@ -63,7 +63,7 @@
 
 		<javaee-api.version>7.0</javaee-api.version>
 		<javax.validation.api.version>1.1.0.Final</javax.validation.api.version>
-		<lombok.version>1.18.12</lombok.version>
+		<lombok.version>1.18.20</lombok.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<swagger.version>1.5.10</swagger.version>
 		<jackson.version>2.5.4</jackson.version>
@@ -77,8 +77,8 @@
 		<log4j.bridge.version>2.9.0</log4j.bridge.version>
 		<log4j.version>2.13.3</log4j.version>
 		<resteasy.version>3.0.14.Final</resteasy.version>
-		<junit.version>5.6.2</junit.version>
-		<mockito.version>3.3.3</mockito.version>
+		<junit.version>5.7.2</junit.version>
+		<mockito.version>3.9.0</mockito.version>
 		<!-- For IT using wildfly -->
 		<derby.version>10.14.2.0</derby.version>
 		<jboss-logging.version>3.3.0.Final</jboss-logging.version>

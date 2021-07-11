@@ -27,7 +27,7 @@ import co.com.gsdd.j2ee.ejb.PersonEJB;
 import co.com.gsdd.j2ee.rest.api.request.PersonRequest;
 
 @ExtendWith(MockitoExtension.class)
-public class PersonRestImplTest {
+class PersonRestImplTest {
 
     private static final String TEST_PERSON_ID = "1";
     private static final String MOCKED_EXCEPTION = "Mocked Exception";
@@ -37,13 +37,13 @@ public class PersonRestImplTest {
     private PersonEJB personEJB;
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @ParameterizedTest
     @MethodSource("nullOrEmptyPersonListInput")
-    public void getAllPersonsNotFoundTest(List<Person> persons) {
+    void getAllPersonsNotFoundTest(List<Person> persons) {
         Mockito.when(personEJB.findAll()).thenReturn(persons);
         Response response = personRest.getAllPersons();
         assertStatus(response, Status.NOT_FOUND);
@@ -54,7 +54,7 @@ public class PersonRestImplTest {
     }
 
     @Test
-    public void getAllPersonsExcTest() {
+    void getAllPersonsExcTest() {
         Mockito.when(personEJB.findAll()).thenThrow(new RuntimeException(MOCKED_EXCEPTION));
         Response response = personRest.getAllPersons();
         assertServerError(response);
@@ -62,7 +62,7 @@ public class PersonRestImplTest {
     }
 
     @Test
-    public void getAllPersonsTest() {
+    void getAllPersonsTest() {
         List<Person> lp = new ArrayList<>();
         lp.add(arrangePerson());
         Mockito.when(personEJB.findAll()).thenReturn(lp);
@@ -72,14 +72,14 @@ public class PersonRestImplTest {
     }
 
     @Test
-    public void getPersonNullTest() {
+    void getPersonNullTest() {
         Mockito.when(personEJB.find(TEST_PERSON_ID)).thenReturn(Optional.empty());
         Response response = personRest.getPerson(TEST_PERSON_ID);
         assertStatus(response, Status.NOT_FOUND);
     }
 
     @Test
-    public void getPersonExcTest() {
+    void getPersonExcTest() {
         Mockito.when(personEJB.find(TEST_PERSON_ID)).thenThrow(new RuntimeException(MOCKED_EXCEPTION));
         Response response = personRest.getPerson(TEST_PERSON_ID);
         assertServerError(response);
@@ -87,7 +87,7 @@ public class PersonRestImplTest {
     }
 
     @Test
-    public void getPersonTest() {
+    void getPersonTest() {
         Mockito.when(personEJB.find(TEST_PERSON_ID)).thenReturn(Optional.ofNullable(arrangePerson()));
         Response response = personRest.getPerson(TEST_PERSON_ID);
         assertStatus(response, Status.OK);
@@ -95,7 +95,7 @@ public class PersonRestImplTest {
     }
 
     @Test
-    public void savePersonExcTest() {
+    void savePersonExcTest() {
         PersonRequest pr = new PersonRequest();
         Mockito.when(personEJB.save(Mockito.any(Person.class))).thenThrow(new RuntimeException(MOCKED_EXCEPTION));
         Response response = personRest.savePerson(pr);
@@ -103,7 +103,7 @@ public class PersonRestImplTest {
     }
 
     @Test
-    public void savePersonTest() {
+    void savePersonTest() {
         PersonRequest pr = new PersonRequest();
         Mockito.when(personEJB.save(Mockito.any(Person.class))).thenReturn(arrangePerson());
         Response response = personRest.savePerson(pr);
@@ -111,7 +111,7 @@ public class PersonRestImplTest {
     }
 
     @Test
-    public void updatePersonTest() {
+    void updatePersonTest() {
         PersonRequest pr = new PersonRequest();
         Mockito.when(personEJB.update(Mockito.anyString(), Mockito.any(Person.class)))
                 .thenReturn(Optional.ofNullable(arrangePerson()));
@@ -121,7 +121,7 @@ public class PersonRestImplTest {
     }
 
     @Test
-    public void updatePersonNotModifiedTest() {
+    void updatePersonNotModifiedTest() {
         PersonRequest pr = new PersonRequest();
         Mockito.when(personEJB.update(Mockito.anyString(), Mockito.any(Person.class))).thenReturn(Optional.empty());
         Response response = personRest.updateUser(TEST_PERSON_ID, pr);
@@ -129,7 +129,7 @@ public class PersonRestImplTest {
     }
 
     @Test
-    public void updatePersonExcTest() {
+    void updatePersonExcTest() {
         PersonRequest pr = new PersonRequest();
         Mockito.when(personEJB.update(Mockito.anyString(), Mockito.any(Person.class)))
                 .thenThrow(new RuntimeException(MOCKED_EXCEPTION));
@@ -139,21 +139,21 @@ public class PersonRestImplTest {
     }
 
     @Test
-    public void deletePersonNoContentTest() {
+    void deletePersonNoContentTest() {
         Mockito.when(personEJB.delete(TEST_PERSON_ID)).thenReturn(true);
         Response response = personRest.deletePerson(TEST_PERSON_ID);
         assertStatus(response, Status.NO_CONTENT);
     }
 
     @Test
-    public void deletePersonNotModifiedTest() {
+    void deletePersonNotModifiedTest() {
         Mockito.when(personEJB.delete(TEST_PERSON_ID)).thenReturn(false);
         Response response = personRest.deletePerson(TEST_PERSON_ID);
         assertStatus(response, Status.NOT_MODIFIED);
     }
 
     @Test
-    public void deletePersonExcTest() {
+    void deletePersonExcTest() {
         Mockito.when(personEJB.delete(TEST_PERSON_ID)).thenThrow(new RuntimeException(MOCKED_EXCEPTION));
         Response response = personRest.deletePerson(TEST_PERSON_ID);
         assertServerError(response);

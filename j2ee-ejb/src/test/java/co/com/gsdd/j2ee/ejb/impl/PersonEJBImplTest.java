@@ -23,7 +23,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import co.com.gsdd.j2ee.db.jpa.Person;
 
 @ExtendWith(MockitoExtension.class)
-public class PersonEJBImplTest {
+class PersonEJBImplTest {
 
     private static final String PERSON_ID = "1";
     @Spy
@@ -32,13 +32,13 @@ public class PersonEJBImplTest {
     private EntityManager manager;
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
         Mockito.when(personDao.getManager()).thenReturn(manager);
     }
 
     @Test
-    public void findAllTest(@Mock CriteriaBuilder builder, @Mock CriteriaQuery<Person> criteriaQuery,
+    void findAllTest(@Mock CriteriaBuilder builder, @Mock CriteriaQuery<Person> criteriaQuery,
             @Mock Root<Person> root, @Mock TypedQuery<Person> typedQuery) {
         List<Person> lp = new ArrayList<>();
         Mockito.when(manager.getCriteriaBuilder()).thenReturn(builder);
@@ -53,7 +53,7 @@ public class PersonEJBImplTest {
     }
 
     @Test
-    public void findTest() {
+    void findTest() {
         Person p = arrangePerson();
         Mockito.when(manager.find(Person.class, PERSON_ID)).thenReturn(p);
         Optional<Person> response = personDao.find(PERSON_ID);
@@ -73,13 +73,13 @@ public class PersonEJBImplTest {
     }
 
     @Test
-    public void updateNotFoundTest(@Mock Person person) {
+    void updateNotFoundTest(@Mock Person person) {
         Mockito.when(personDao.find(PERSON_ID)).thenReturn(null);
         Assertions.assertFalse(personDao.update(PERSON_ID, person).isPresent());
     }
 
     @Test
-    public void updateTest() {
+    void updateTest() {
         Person pr = arrangePerson();
         pr.setPersonId(PERSON_ID);
         Mockito.doReturn(Optional.ofNullable(pr)).when(personDao).find(PERSON_ID);
@@ -91,13 +91,13 @@ public class PersonEJBImplTest {
     }
 
     @Test
-    public void deleteNotFoundTest(@Mock Person person) {
+    void deleteNotFoundTest(@Mock Person person) {
         Mockito.when(personDao.find(PERSON_ID)).thenReturn(null);
         Assertions.assertFalse(personDao.delete(PERSON_ID));
     }
 
     @Test
-    public void deleteFoundTest(@Mock Person person) {
+    void deleteFoundTest(@Mock Person person) {
         Mockito.doReturn(Optional.ofNullable(person)).when(personDao).find(PERSON_ID);
         Mockito.doNothing().when(manager).remove(person);
         Assertions.assertTrue(personDao.delete(PERSON_ID));

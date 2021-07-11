@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import co.com.gsdd.j2ee.db.jpa.Person;
 
 @ExtendWith(MockitoExtension.class)
-public class PersonDaoIT {
+class PersonDaoIT {
 
     private EntityManager entityManager;
     private EntityTransaction entityTxn;
@@ -28,8 +28,8 @@ public class PersonDaoIT {
     private static final String TARGET_DERBY_LOG = "target/derby.log";
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
         System.setProperty(DERBY_STREAM_ERROR_FILE, new File(TARGET_DERBY_LOG).getAbsolutePath());
         entityManager = Persistence.createEntityManagerFactory("j2eeMappingIT").createEntityManager();
         entityTxn = entityManager.getTransaction();
@@ -37,7 +37,7 @@ public class PersonDaoIT {
     }
 
     @Test
-    public void saveTest() {
+    void saveTest() {
         entityTxn.begin();
         Person response = personDao.save(arrangePerson());
         entityTxn.commit();

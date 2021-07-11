@@ -12,18 +12,18 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class HealthRestImplTest {
+class HealthRestImplTest {
 
     @Spy
     private HealthRestImpl healthRest;
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void healthCheck() {
+    void healthCheck() {
         Response response = healthRest.healthCheck();
         Assertions.assertNotNull(response);
         Assertions.assertEquals(Status.OK.getStatusCode(), response.getStatus());

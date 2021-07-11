@@ -17,7 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import co.com.gsdd.j2ee.rest.api.websocket.WebSocketClientEndpoint;
 
 @ExtendWith(MockitoExtension.class)
-public class WSClientRestImplTest {
+class WSClientRestImplTest {
 
     @Spy
     @InjectMocks
@@ -26,12 +26,12 @@ public class WSClientRestImplTest {
     private WebSocketClientEndpoint webSocketClient;
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void checkWebSocketClientTest() {
+    void checkWebSocketClientTest() {
         Mockito.doNothing().when(webSocketClient).initConnection();
         Response response = wsClientRestImpl.checkWebSocketClient();
         Assertions.assertNotNull(response);
@@ -39,7 +39,7 @@ public class WSClientRestImplTest {
     }
 
     @Test
-    public void checkWebSocketClientExcTest() {
+    void checkWebSocketClientExcTest() {
         Mockito.doThrow(new RuntimeException()).when(webSocketClient).initConnection();
         Response response = wsClientRestImpl.checkWebSocketClient();
         Assertions.assertNotNull(response);
