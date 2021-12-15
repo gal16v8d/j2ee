@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>co.com.gsdd</groupId>
+		<groupId>com.gsdd</groupId>
 		<artifactId>j2ee</artifactId>
 		<version>1.0.001</version>
 		<relativePath>../pom.xml</relativePath>
@@ -22,7 +22,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>co.com.gsdd</groupId>
+			<groupId>com.gsdd</groupId>
 			<artifactId>j2ee-ejb</artifactId>
 			<type>ejb</type>
 		</dependency>

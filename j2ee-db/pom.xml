@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>co.com.gsdd</groupId>
+		<groupId>com.gsdd</groupId>
 		<artifactId>j2ee</artifactId>
 		<version>1.0.001</version>
 	</parent>
@@ -11,11 +11,11 @@
 	<artifactId>j2ee-db</artifactId>
 	<packaging>jar</packaging>
 
+	<name>j2ee DB</name>
 	<organization>
 		<name>GSDD</name>
 	</organization>
-	<name>j2ee DB</name>
-
+	
 	<properties>
 		<scm.rungoal>updateSQL</scm.rungoal>
 		<scm.skipdb>true</scm.skipdb>

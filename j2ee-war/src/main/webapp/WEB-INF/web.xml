@@ -16,7 +16,7 @@
     
     <servlet>
 		<servlet-name>SwaggerBootstrap</servlet-name>
-		<servlet-class>co.com.gsdd.j2ee.rest.config.SwaggerJaxrsConfiguration</servlet-class>
+		<servlet-class>com.gsdd.j2ee.rest.config.SwaggerJaxrsConfiguration</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
     
