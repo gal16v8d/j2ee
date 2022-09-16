@@ -71,7 +71,7 @@ class PersonEJBImplTest {
 
     @Test
     void updateNotFoundTest(@Mock Person person) {
-        Mockito.when(personDao.find(PERSON_ID)).thenReturn(null);
+        Mockito.when(personDao.find(PERSON_ID)).thenReturn(Optional.empty());
         Assertions.assertFalse(personDao.update(PERSON_ID, person).isPresent());
     }
 
@@ -89,7 +89,7 @@ class PersonEJBImplTest {
 
     @Test
     void deleteNotFoundTest(@Mock Person person) {
-        Mockito.when(personDao.find(PERSON_ID)).thenReturn(null);
+        Mockito.when(personDao.find(PERSON_ID)).thenReturn(Optional.empty());
         Assertions.assertFalse(personDao.delete(PERSON_ID));
     }
 
